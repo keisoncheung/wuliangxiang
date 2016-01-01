@@ -1,0 +1,110 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="mat.master.cs" Inherits="mat" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <%=Public2.Hearder(1) %>
+    <link type="text/css" rel="stylesheet" href="css/global.css" />
+    <link type="text/css" rel="stylesheet" href="css/index.css" />
+    <script src="Scripts/jquery-1.8.2.min.js"></script>
+</head>
+<body style="background-image: url(images/bg_img.jpg);">
+    <div class="toper">
+        <div class="top">
+            <div class="top2">
+                <div class="top2_logo">
+                    <a href="index.aspx">
+                        <img src="images/index_top.jpg" height="115" /></a>
+                </div>
+                <div class="top2_ss">
+                    <img src="images/index_top_1.jpg" height="115">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header">
+        <script>
+           
+            $(document).ready(function () {
+                $('.nav>li').mousemove(function () {
+                    $(this).addClass('on');
+                    $(this).find('dl').slideDown();//you can give it a speed
+                });
+                $('.nav>li').mouseleave(function () {
+                    $(this).removeClass('on');
+                    $(this).find('dl').slideUp("fast");
+                });
+
+            });
+        </script>
+        <div class="head">
+            <ul class="nav" id="nav">
+                <li><a href="index">首页</a></li>
+                <li><a href="aboutus">企业介绍</a></li>
+                <li><a href="newslist">新闻中心</a></li>
+                <li><a href="product">品牌展示</a></li>
+                <li><a href="Contact">联系我们</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="flasher">
+        <!--<img src="images/fl.jpg" height="412" />-->
+
+        <div class="flexslider">
+            <script type="text/javascript"><!--        
+    var focus_width = 950
+    var focus_height = 403
+    var text_height = 0
+    var swf_height = focus_height + text_height
+
+    var pics = ''
+                <%
+                List<string> sbr = new List<string>();
+                string str_pics = string.Empty;
+                string sql = "select top 5 * from MainPic order by id desc";
+                System.Data.DataTable dt = DLL.OleDbHelper.ExecuteDataSet(DLL.OleDbHelper.Conn, sql, null).Tables[0];
+                foreach (System.Data.DataRow dr in dt.Rows)
+                {
+                    sbr.Add("pic/" + Convert.ToString(dr["bpic"]));
+                }
+                if (sbr.Count > 0)
+                    str_pics = string.Join("|", sbr.ToArray());
+                
+                %>
+
+                pics='<%=str_pics%>';
+
+    var links = '||'
+                var texts = ''
+                document.write('<object ID="focus_flash" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0" width="' + focus_width + '" height="' + swf_height + '">');
+                document.write('<param name="allowScriptAccess" value="sameDomain"><param name="movie" value="Images/headline.swf"><param name="quality" value="high"><param name="bgcolor" value="#FFFFFF">');
+                document.write('<param name="menu" value="false"><param name=wmode value="opaque">');
+                document.write('<param name="FlashVars" value="pics=' + pics + '&links=' + links + '&texts=' + texts + '&borderwidth=' + focus_width + '&borderheight=' + focus_height + '&textheight=' + text_height + '">');
+                document.write('<embed ID="focus_flash" src="Images/headline.swf" wmode="opaque" FlashVars="pics=' + pics + '&links=' + links + '&texts=' + texts + '&borderwidth=' + focus_width + '&borderheight=' + focus_height + '&textheight=' + text_height + '" menu="false" bgcolor="#C5C5C5" quality="high" width="' + focus_width + '" height="' + swf_height + '" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />'); document.write('</object>');
+                //--></script>
+
+        </div>
+        <!--   <script src="js/jquery.flexslider-min.js"></script>
+<script>
+$(function(){
+	$('.flexslider').flexslider({
+		directionNav: true,
+		pauseOnAction: false
+	});
+}); 
+</script> -->
+    </div>
+
+    <div class="mainerbox6box">
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        </asp:ContentPlaceHolder>
+
+        <div class="mainerbox6box5">
+            <div align="center">Copyright（C）2006-2014 ALL Rights Reserved  贵州利生香中药科技有限公司版权所有 粤ICP备09064194号</div>
+        </div>
+    </div>
+
+
+</body>
+</html>
